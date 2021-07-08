@@ -1,0 +1,4 @@
+{
+  "OriginRestrictionRegex": "/\\.yourdomain\\.tld$/",
+  "AllowNonCORSRequests": false
+}

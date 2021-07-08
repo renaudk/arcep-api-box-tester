@@ -1,0 +1,24 @@
+{
+  "name": "arcep-dev/arcep-api-box-tester",
+  "description": "ARCEP \"API box\" demo client",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "nPerf",
+      "email": "contact@nperf.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "league/oauth2-client": "2.6.*",
+    "geoip2/geoip2": "v2.11.0",
+    "ext-json": "*",
+    "ext-curl": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "ArcepApiBoxTester\\": "src/ArcepApiBoxTester/"
+    }
+  }
+}
