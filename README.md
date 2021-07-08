@@ -1,3 +1,8 @@
+# Prerequisites
+
+* ISP identification is handled by GeoIP by Maxmind, therefore Maxmind GeoIP2 or GeoLite database is required (GeoLite-ASN or GoIP2-ISP).
+* PHP extensions : curl, json
+
 # Quick start
 
 ## Install dependencies with Composer
