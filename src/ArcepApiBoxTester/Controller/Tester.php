@@ -215,7 +215,7 @@ class Tester {
             $this->_jsonResponse($accessToken);
         } catch (Exception $e) {
             // Failed to get the access token
-            $this->Error = 'OAuth2 Client initialization error: '.$e->getMessage();
+            $this->Error = 'OAuth2 Client initialization error: '.$e->getMessage(). ' : '.$e->getResponseBody()['errorDescription'];
             $this->_jsonResponse([]);
         }
     }
