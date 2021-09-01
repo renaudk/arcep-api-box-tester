@@ -11,6 +11,7 @@ use GeoIp2\Exception\AddressNotFoundException;
 use ArcepApiBoxTester\Model\OAuthProvider;
 use GeoIp2\Model\Asn;
 use GeoIp2\Model\Isp;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use MaxMind\Db\Reader\InvalidDatabaseException;
 
 class Tester {
@@ -161,14 +162,12 @@ class Tester {
         $input = json_decode(file_get_contents("php://input"));
 
         if(!isset($input->ipv4) || !isset($input->ipv6)) {
-            $this->Error = 'Bad JSON payload!';
-            $this->_jsonResponse([]);
+            $this->_jsonResponse(['error'=>'Bad JSON payload!']);
             return;
         }
 
         if(!isset($input->ipv4->IPAddress) && !isset($input->ipv6->IPAddress)) {
-            $this->Error = 'No IP address reported in payload!';
-            $this->_jsonResponse([]);
+            $this->_jsonResponse(['error'=>'No IP address reported in payload!']);
             return;
         }
 
@@ -179,16 +178,14 @@ class Tester {
             case "ipv4Only":
                 if(isset($input->ipv4->IPAddress)) $IP = $input->ipv4->IPAddress;
                 else {
-                    $this->Error = 'No IPv4 address reported in payload while \"ipStack\" is set to \"ipv4Only\" !';
-                    $this->_jsonResponse([]);
+                    $this->_jsonResponse(['error'=>'No IPv4 address reported in payload while \"ipStack\" is set to \"ipv4Only\" !']);
                     return;
                 }
                 break;
             case "ipv6Only":
                 if(isset($input->ipv6->IPAddress)) $IP = $input->ipv6->IPAddress;
                 else {
-                    $this->Error = 'No IPv6 address reported in payload while \"ipStack\" is set to \"ipv6Only\" !';
-                    $this->_jsonResponse([]);
+                    $this->_jsonResponse(['error'=>'No IPv6 address reported in payload while \"ipStack\" is set to \"ipv6Only\" !']);
                     return;
                 }
                 break;
@@ -215,8 +212,11 @@ class Tester {
             $this->_jsonResponse($accessToken);
         } catch (Exception $e) {
             // Failed to get the access token
-            $this->Error = 'OAuth2 Client initialization error: '.$e->getMessage(). ' : '.$e->getResponseBody()['errorDescription'];
-            $this->_jsonResponse([]);
+            $error = 'OAuth2 Client initialization error: '.$e->getMessage();
+            if($e instanceof IdentityProviderException && isset($e->getResponseBody()['errorDescription'])) {
+                $error .= ' Desc: ' . $e->getResponseBody()['errorDescription'];
+            }
+            $this->_jsonResponse(['error'=>$error]);
         }
     }
 
