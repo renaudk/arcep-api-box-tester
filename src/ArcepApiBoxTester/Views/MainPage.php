@@ -344,8 +344,11 @@
 
             // Define URL
             var url;
-            if(callId === 1) url = $('main').data('urlPrec');
-            if(callId === 2) url = $('main').data('urlPostc').replace('{UNIQUE_ID}', $('main').data('call1').id);
+            if(callId === 1) url = $('main').data('urlPrec')
+                .replace('{SCOPE}', $('main').data('access_token').scope);
+            if(callId === 2) url = $('main').data('urlPostc')
+                .replace('{SCOPE}', $('main').data('access_token').scope)
+                .replace('{UNIQUE_ID}', $('main').data('call1').id);
 
             $('#loader').removeClass('d-none');
             $('#loaderText').html('Making API 1st call... [URL: '+url+']');
