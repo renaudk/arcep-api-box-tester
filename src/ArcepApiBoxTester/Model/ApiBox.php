@@ -11,7 +11,7 @@ class ApiBox
      * @param $ispApiId string ISP Identifier
      * @return stdClass|false
      */
-    static public function getApiParams(string $ispApiId) : stdClass
+    static public function getApiParams(string $ispApiId)
     {
         $apiCredentials = json_decode(file_get_contents($_ENV['API_CREDENTIALS_JSON']));
         if(isset($apiCredentials->isps->$ispApiId))
