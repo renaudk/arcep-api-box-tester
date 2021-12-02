@@ -231,4 +231,12 @@ class OAuthProvider extends AbstractProvider {
 
         return $token;
     }
+    protected function getAllowedClientOptions(array $options)
+    {
+        $client_options = ['cert', 'ssl_key'];
+
+        $parent_options = parent::getAllowedClientOptions($options);
+
+        return array_merge($parent_options, $client_options);
+    }
 }
