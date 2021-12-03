@@ -3,3 +3,5 @@ api-credentials.*.json
 *.env
 ipinfo.json
 .idea
+tls/*
+!tls/README.md
