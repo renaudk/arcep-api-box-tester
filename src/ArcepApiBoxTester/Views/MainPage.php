@@ -386,7 +386,7 @@
                 $('#loader').addClass('d-none');
                 $('main').data('call1', data);
                 if(textStatus === "success" && data.error === undefined) {
-                    $('#infoMessage').html('1st Call: SUCCESS');
+                    $('#infoMessage').html((callId===1?'1st':'2nd')+' Call: SUCCESS');
                     $('#info').removeClass('d-none');
                     $('#tab').removeClass('d-none');
                     $('#tabContent').removeClass('d-none');
